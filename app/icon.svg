@@ -1,4 +1,7 @@
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="32" height="32" rx="8" fill="#121212" stroke="white" stroke-opacity="0.2" stroke-width="1.5"/>
-  <circle cx="16" cy="16" r="4.5" fill="white"/>
+<svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="GDG VITC logo">
+  <circle cx="24" cy="24" r="15" stroke="#EA4335" stroke-width="9" pathLength="100" stroke-dasharray="25 75" transform="rotate(-180 24 24)"/>
+  <circle cx="24" cy="24" r="15" stroke="#FBBC05" stroke-width="9" pathLength="100" stroke-dasharray="25 75" transform="rotate(90 24 24)"/>
+  <circle cx="24" cy="24" r="15" stroke="#34A853" stroke-width="9" pathLength="100" stroke-dasharray="25 75"/>
+  <circle cx="24" cy="24" r="15" stroke="#4285F4" stroke-width="9" pathLength="100" stroke-dasharray="25 75" transform="rotate(-90 24 24)"/>
+  <rect x="24" y="20.5" width="15" height="7" fill="#4285F4"/>
 </svg>

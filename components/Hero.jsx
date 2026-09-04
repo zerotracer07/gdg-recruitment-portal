@@ -1,11 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, Layers, Users, Rocket } from "lucide-react";
 import { reviews } from "@/constants";
+import { authClient } from "@/lib/auth-client";
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const { data: session, isPending } = authClient.useSession();
+  const user = mounted && !isPending ? session?.user : undefined;
+  const signedIn = Boolean(user);
   const stats = [
     { icon: Layers, value: String(reviews.length), label: "Departments" },
     { icon: Users, value: "2", label: "Max applications" },
@@ -46,12 +52,21 @@ export default function Hero() {
             Browse departments
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
           </Link>
-          <Link
-            href="/auth/signin"
-            className="inline-flex w-full items-center justify-center rounded-lg border bg-background px-6 py-3 text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:bg-accent sm:w-auto"
-          >
-            Sign in to apply
-          </Link>
+          {signedIn ? (
+            <Link
+              href="/profile"
+              className="inline-flex w-full items-center justify-center rounded-lg border bg-background px-6 py-3 text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:bg-accent sm:w-auto"
+            >
+              My applications
+            </Link>
+          ) : (
+            <Link
+              href="/auth/signin"
+              className="inline-flex w-full items-center justify-center rounded-lg border bg-background px-6 py-3 text-sm font-semibold shadow-sm transition hover:-translate-y-0.5 hover:bg-accent sm:w-auto"
+            >
+              Sign in to apply
+            </Link>
+          )}
         </div>
         <dl className="mx-auto mt-12 grid max-w-lg grid-cols-3 gap-3">
           {stats.map((s) => (

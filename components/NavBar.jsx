@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import UserButton from "./UserButton";
+import ThemeToggle from "./ThemeToggle";
 import { authClient } from "@/lib/auth-client";
 import { Menu, X } from "lucide-react";
 
@@ -83,10 +84,14 @@ const NavBar = () => {
               {l.label}
             </Link>
           ))}
-          <span className="ml-2">{authArea}</span>
+          <span className="ml-2 flex items-center gap-2">
+            <ThemeToggle />
+            {authArea}
+          </span>
         </div>
 
         <div className="flex items-center gap-2 sm:hidden">
+          <ThemeToggle />
           <span>{authArea}</span>
           <button
             type="button"

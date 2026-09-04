@@ -1,6 +1,7 @@
 import { connect } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { sendApplicationEmail } from "@/lib/mailer";
 
 export const dynamic = "force-dynamic";
 
@@ -83,6 +84,13 @@ export async function POST(req) {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
+
+    // Fire-and-forget confirmation (never blocks the response).
+    sendApplicationEmail({
+      to: userEmail,
+      name: formFields.Name,
+      departments: [Department],
+    }).catch((e) => console.error("Application email failed:", e?.message || e));
 
     return new Response(
       JSON.stringify({

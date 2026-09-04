@@ -110,12 +110,13 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
       .string()
       .min(1, "Phone is required")
       .regex(/^\d{10}$/, "Phone number must be exactly 10 digits"),
-    Gender: z.string().optional(),
-    "Year of Study": z.string().optional(),
+    Gender: z.string().min(1, "Please select your gender"),
+    "Year of Study": z.string().min(1, "Please select your year of study"),
+    "Why do you want to join GDG VITC?": z.string().min(1, "This answer is required"),
   };
 
   questionData.forEach((qd) => {
-    schemaObj[qd] = z.string().optional();
+    schemaObj[qd] = z.string().min(1, "This answer is required");
   });
 
   const formSchema = z.object(schemaObj);
@@ -128,6 +129,7 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
       Phone: "",
       Gender: "",
       "Year of Study": "",
+      "Why do you want to join GDG VITC?": "",
     },
   });
 
@@ -257,6 +259,7 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
       Phone: values.Phone,
       Gender: values.Gender || "",
       "Year of Study": values["Year of Study"] || "",
+      "Why do you want to join GDG VITC?": values["Why do you want to join GDG VITC?"] || "",
     };
 
     const submitDepartment = async (department) => {
