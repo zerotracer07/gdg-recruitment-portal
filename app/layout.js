@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { SubmissionsProvider } from "@/components/SubmissionsProvider";
 import BackgroundDecor from "@/components/BackgroundDecor";
+import CursorTracker from "@/components/CursorTracker";
 // Styling
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
             <BackgroundDecor />
             {children}
             <Toaster />
+            <CursorTracker />
           </SubmissionsProvider>
         </ThemeProvider>
       </body>

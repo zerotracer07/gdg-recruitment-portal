@@ -60,7 +60,77 @@
   }
 }
 
-/* Custom cursor styles removed (tracker disabled) */
+/* Custom cursor: hide native cursor only while tracker is active (fine pointers only) */
+@media (pointer: fine) {
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+.cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cursor-dot,
+.cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  border-radius: 9999px;
+}
+
+/* White core with difference blend => visible on any background */
+.cursor-dot {
+  width: 9px;
+  height: 9px;
+  background: #fff;
+  mix-blend-mode: difference;
+  transition: width 0.2s ease, height 0.2s ease, opacity 0.3s ease;
+}
+
+/* GDG conic-gradient ring */
+.cursor-ring {
+  width: 38px;
+  height: 38px;
+  padding: 2px;
+  background: conic-gradient(
+    from 0deg,
+    #4285f4,
+    #ea4335,
+    #fbbc05,
+    #34a853,
+    #4285f4
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  animation: ring-rotate 6s linear infinite;
+  transition: width 0.25s ease, height 0.25s ease, opacity 0.3s ease;
+}
+
+.cursor-ring.cursor-hover {
+  width: 60px;
+  height: 60px;
+  animation-duration: 2.5s;
+}
+
+.cursor-ring.cursor-press {
+  width: 26px;
+  height: 26px;
+}
+
+@keyframes ring-rotate {
+  to {
+    rotate: 360deg;
+  }
+}
 
 /* ------- Animated site background ------- */
 .bg-decor {
@@ -134,7 +204,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-orb {
+  .bg-orb,
+  .cursor-ring {
     animation: none;
+  }
+  .cursor-layer {
+    display: none;
+  }
+  body.custom-cursor-active,
+  body.custom-cursor-active * {
+    cursor: auto !important;
   }
 }
