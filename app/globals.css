@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Custom cursor styles removed (tracker disabled) */
+
+/* ------- Animated site background ------- */
+.bg-decor {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+  background-image: radial-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+.dark .bg-decor {
+  background-image: radial-gradient(hsl(var(--foreground) / 0.1) 1px, transparent 1px);
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.5;
+}
+
+.dark .bg-orb {
+  opacity: 0.35;
+}
+
+.orb-a {
+  width: 34rem;
+  height: 34rem;
+  left: -12rem;
+  top: -14rem;
+  background: hsl(var(--primary) / 0.14);
+  animation: drift-a 18s ease-in-out infinite alternate;
+}
+
+.orb-b {
+  width: 28rem;
+  height: 28rem;
+  right: -10rem;
+  top: 30%;
+  background: #4285f433;
+  animation: drift-b 22s ease-in-out infinite alternate;
+}
+
+.orb-c {
+  width: 26rem;
+  height: 26rem;
+  left: 25%;
+  bottom: -14rem;
+  background: #0f9d5833;
+  animation: drift-c 26s ease-in-out infinite alternate;
+}
+
+@keyframes drift-a {
+  to {
+    transform: translate(7rem, 5rem) scale(1.15);
+  }
+}
+
+@keyframes drift-b {
+  to {
+    transform: translate(-6rem, -4rem) scale(1.1);
+  }
+}
+
+@keyframes drift-c {
+  to {
+    transform: translate(5rem, -5rem) scale(1.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-orb {
+    animation: none;
+  }
+}
