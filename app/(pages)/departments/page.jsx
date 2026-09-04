@@ -68,7 +68,9 @@ const DepartmentsListPage = () => {
           </div>
           <div className="flex items-center gap-3">
             <span className="rounded-full border px-3 py-1 text-xs font-semibold">
-              {selectedDepartments.length} / 2 selected
+              <span aria-live="polite">
+                {selectedDepartments.length} / 2 selected
+              </span>
             </span>
             <button
               type="button"
@@ -94,11 +96,23 @@ const DepartmentsListPage = () => {
             const isSelected = selectedDepartments.includes(department.name);
             const isSubmitted = submittedDepartments.includes(department.name);
             const DeptIcon = department.icon;
+            const checked = isSelected || isSubmitted;
             return (
               <li
                 key={department.id}
+                role="checkbox"
+                aria-checked={checked}
+                aria-label={`${department.name}${isSubmitted ? " (already submitted)" : ""}`}
+                tabIndex={isSubmitted ? -1 : 0}
                 onClick={() => !isSubmitted && toggleDepartment(department.name)}
-                className={`group relative cursor-pointer overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg ${
+                onKeyDown={(e) => {
+                  if (isSubmitted) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggleDepartment(department.name);
+                  }
+                }}
+                className={`group relative cursor-pointer overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   isSelected ? "border-transparent ring-2 ring-primary" : ""
                 } ${isSubmitted ? "cursor-not-allowed opacity-60" : ""}`}
               >
@@ -145,8 +159,9 @@ const DepartmentsListPage = () => {
                     </span>
                   </span>
                   <span
+                    aria-hidden="true"
                     className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition ${
-                      isSelected || isSubmitted
+                      checked
                         ? "border-primary bg-primary text-primary-foreground"
                         : "text-transparent group-hover:border-primary"
                     }`}

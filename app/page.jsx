@@ -4,13 +4,17 @@ import NavBar from "@/components/NavBar";
 import Hero from "@/components/Hero";
 import HomeSections from "@/components/HomeSections";
 import Footer from "@/components/Footer";
-import PopupComp from "@/components/PopupComp";
+import PopupComp, { wasNoticeDismissed } from "@/components/PopupComp";
 import { authClient } from "@/lib/auth-client";
 
 const Home = () => {
-  const [isDialogOpen, setIsDialogOpen] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+  useEffect(() => {
+    setMounted(true);
+    // Show the notice once per session — never nag on every visit.
+    if (!wasNoticeDismissed()) setIsDialogOpen(true);
+  }, []);
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
 

@@ -604,7 +604,7 @@ export const CSV_Header = [
 // Mailing Templates
 export const mailingTemplate = {
   Interview:
-    "<p>Edit content</p><br><p>Thank you for applying to Organization Name. We are excited to let you know that you have been shortlisted for joining the #dept Department!</p><p>We look forward to your active participation!</p>",
+    "<p>Edit content</p><br><p>Thank you for applying to GDG VITC. We are excited to let you know that you have been shortlisted for joining the #dept Department!</p><p>We look forward to your active participation!</p>",
 };
 
 export const technicalCards = [

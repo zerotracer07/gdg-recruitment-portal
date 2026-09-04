@@ -11,8 +11,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Organization Name | Recruitment Portal",
-  description: "Recruitment portal for Organization Name",
+  title: "GDG VITC | Recruitment Portal",
+  description: "Recruitment portal for GDG VITC",
 };
 
 export default function RootLayout({ children }) {

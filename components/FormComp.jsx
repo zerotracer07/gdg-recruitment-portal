@@ -479,10 +479,10 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
             <div>
               <FormField
                 control={form.control}
-                name="Why do you want to join Organization Name?"
+                name="Why do you want to join GDG VITC?"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Why do you want to join Organization Name?</FormLabel>
+                    <FormLabel>Why do you want to join GDG VITC?</FormLabel>
                     <FormControl>
                       <Textarea {...field} rows={4} placeholder="2-3 Sentences" />
                     </FormControl>
@@ -519,7 +519,7 @@ const renderDepartmentQuestions = (department, QuestionnaireData, form) => {
     QuestionnaireData.find(qd => normalize(qd.department) === normalize(department))?.questions ?? []
   )
     .map(normaliseQuestion)
-    .filter((question) => question.name !== "Why do you want to join Organization Name?" && question.name !== "Why do you want to join DWASFW?");
+    .filter((question) => question.name !== "Why do you want to join GDG VITC?" && question.name !== "Why do you want to join DWASFW?");
 
   if (!questions.length) return null;
 
