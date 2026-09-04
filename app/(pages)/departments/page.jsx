@@ -97,31 +97,32 @@ const DepartmentsListPage = () => {
             const isSubmitted = submittedDepartments.includes(department.name);
             const DeptIcon = department.icon;
             const checked = isSelected || isSubmitted;
+            const label = `${department.name}${isSubmitted ? " (already submitted)" : ""}`;
             return (
               <li
                 key={department.id}
-                role="checkbox"
-                aria-checked={checked}
-                aria-label={`${department.name}${isSubmitted ? " (already submitted)" : ""}`}
-                tabIndex={isSubmitted ? -1 : 0}
-                onClick={() => !isSubmitted && toggleDepartment(department.name)}
-                onKeyDown={(e) => {
-                  if (isSubmitted) return;
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    toggleDepartment(department.name);
-                  }
-                }}
-                className={`group relative cursor-pointer overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`group relative overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring ${
                   isSelected ? "border-transparent ring-2 ring-primary" : ""
-                } ${isSubmitted ? "cursor-not-allowed opacity-60" : ""}`}
+                } ${isSubmitted ? "opacity-60" : ""}`}
               >
                 <span
                   aria-hidden="true"
                   className="absolute inset-x-0 top-0 h-1"
                   style={{ backgroundColor: department.tone || "var(--primary)" }}
                 />
-                <span className="flex items-start justify-between gap-3">
+                <label
+                  className={`flex items-start justify-between gap-3 ${
+                    isSubmitted ? "cursor-not-allowed" : "cursor-pointer"
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    className="peer sr-only"
+                    checked={checked}
+                    disabled={isSubmitted}
+                    onChange={() => toggleDepartment(department.name)}
+                    aria-label={label}
+                  />
                   <span className="flex min-w-0 items-start gap-3">
                     <span
                       className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
@@ -160,7 +161,7 @@ const DepartmentsListPage = () => {
                   </span>
                   <span
                     aria-hidden="true"
-                    className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition ${
+                    className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground ${
                       checked
                         ? "border-primary bg-primary text-primary-foreground"
                         : "text-transparent group-hover:border-primary"
@@ -168,7 +169,7 @@ const DepartmentsListPage = () => {
                   >
                     <Check className="h-4 w-4" />
                   </span>
-                </span>
+                </label>
               </li>
             );
           })}
