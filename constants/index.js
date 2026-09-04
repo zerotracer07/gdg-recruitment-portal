@@ -520,19 +520,19 @@ export const SHORTLISTED_STATUSES = ["interview", "accepted"];
 export const statusEmailTemplates = {
   under_review: {
     subject: "Your GDG VITC application is under review",
-    body: "<p>Hi #name,</p><p>Good news — your application for the <strong>#dept</strong> department is now under review by our leads. We will update you soon.</p><p>— GDG VITC Recruitment Team</p>",
+    body: "<p>Hi #name,</p><p>Good news — your application for the <strong>#dept</strong> department is now <strong>under review</strong> by our leads. We will update you as soon as a decision is made.</p><p>You can follow your progress anytime under <strong>My Applications</strong> on the portal.</p>",
   },
   interview: {
-    subject: "You are invited to interview — GDG VITC (#dept)",
-    body: "<p>Hi #name,</p><p>You have been shortlisted for an interview for the <strong>#dept</strong> department! Our leads will reach out shortly with your slot.</p><p>— GDG VITC Recruitment Team</p>",
+    subject: "Interview invite — GDG VITC (#dept)",
+    body: "<p>Hi #name,</p><p>Congratulations — you have been shortlisted for an <strong>interview</strong> for the <strong>#dept</strong> department!</p><p>Our leads will reach out shortly with your slot and venue details. Keep an eye on your inbox (and spam folder).</p>",
   },
   accepted: {
     subject: "Welcome to GDG VITC — #dept!",
-    body: "<p>Hi #name,</p><p>Congratulations! You have been selected for the <strong>#dept</strong> department. Watch your inbox for onboarding steps.</p><p>— GDG VITC Recruitment Team</p>",
+    body: "<p>Hi #name,</p><p>We are thrilled to tell you that you have been <strong>selected</strong> for the <strong>#dept</strong> department. Welcome aboard!</p><p>Watch your inbox for onboarding steps and the orientation schedule.</p>",
   },
   rejected: {
     subject: "Update on your GDG VITC application",
-    body: "<p>Hi #name,</p><p>Thank you for applying to the <strong>#dept</strong> department. We could not move forward this time, but we appreciate your effort — please apply again next cycle!</p><p>— GDG VITC Recruitment Team</p>",
+    body: "<p>Hi #name,</p><p>Thank you for applying to the <strong>#dept</strong> department. We received many strong applications and could not move forward with yours this time.</p><p>We appreciate the effort — please apply again next cycle. Keep building!</p>",
   },
 };
 

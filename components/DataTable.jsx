@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/table";
 import FilterDepartment from "./FilterDepartment";
 import FilterShortlisted from "./FilterShortlisted";
+import FilterStatus from "./FilterStatus";
 import { FaSortAmountDownAlt } from "react-icons/fa";
 import { GrPowerReset } from "react-icons/gr";
 import { Button } from "./ui/button";
@@ -37,41 +38,39 @@ const DataTable = ({ data }) => {
 
   const [deptFiltered, setDeptFiltered] = useState(data);
   const [shortFiltered, setShortFiltered] = useState(data);
-
-  const commonElements = (arr1, arr2) => {
-    const set2 = new Set(arr2);
-    return arr1.filter((x) => set2.has(x));
-  };
+  const [statusFiltered, setStatusFiltered] = useState(data);
+  const [filterKey, setFilterKey] = useState(0);
 
   const filterFunc = (dept) => {
-    setDeptFiltered(data);
-    const filteredData = data.filter((data) => {
-      return data.Department === dept;
-    });
-
-    setDeptFiltered(filteredData);
+    if (!dept) {
+      setDeptFiltered(data);
+      return;
+    }
+    setDeptFiltered(data.filter((item) => item.Department === dept));
   };
 
   const shortlistedFilterFunc = (status) => {
-    const filteredData = data.filter((data) => {
-      return String(data.shortlisted) === status;
-    });
-
-    setShortFiltered(filteredData);
+    if (!status) {
+      setShortFiltered(data);
+      return;
+    }
+    setShortFiltered(data.filter((item) => String(item.shortlisted) === status));
   };
 
-  // Pipeline Step 1: Filter reconciliation
-  useEffect(() => {
-    if (deptFiltered !== data && shortFiltered !== data) {
-      setTableData(commonElements(deptFiltered, shortFiltered));
-    } else if (deptFiltered !== data && shortFiltered === data) {
-      setTableData(deptFiltered);
-    } else if (deptFiltered === data && shortFiltered !== data) {
-      setTableData(shortFiltered);
-    } else {
-      setTableData(data);
+  const statusFilterFunc = (status) => {
+    if (!status) {
+      setStatusFiltered(data);
+      return;
     }
-  }, [deptFiltered, shortFiltered, data]);
+    setStatusFiltered(data.filter((item) => (item.status || "applied") === status));
+  };
+
+  // Intersect all active filters (an untouched filter holds the full dataset)
+  useEffect(() => {
+    const inShort = new Set(shortFiltered);
+    const inStatus = new Set(statusFiltered);
+    setTableData(deptFiltered.filter((x) => inShort.has(x) && inStatus.has(x)));
+  }, [deptFiltered, shortFiltered, statusFiltered, data]);
 
   const handleStatusChange = async (id, newStatus) => {
     try {
@@ -357,15 +356,18 @@ const DataTable = ({ data }) => {
           onChange={(e) => handlePageSize(e)}
           placeholder={"Page Size"}
         />
-        <FilterDepartment filterFunc={filterFunc} />
-        <FilterShortlisted filterFunc={shortlistedFilterFunc} />
+        <FilterDepartment key={`dept-${filterKey}`} filterFunc={filterFunc} />
+        <FilterShortlisted key={`short-${filterKey}`} filterFunc={shortlistedFilterFunc} />
+        <FilterStatus key={`status-${filterKey}`} filterFunc={statusFilterFunc} />
         <DialogComp selectedApplicants={showRowData} />
         <Button
           onClick={() => {
             setDeptFiltered(data);
             setShortFiltered(data);
+            setStatusFiltered(data);
             setTableData(data);
             setGlobalFilter("");
+            setFilterKey((k) => k + 1); // remount comboboxes to clear labels
           }}
           className="flex gap-2"
         >

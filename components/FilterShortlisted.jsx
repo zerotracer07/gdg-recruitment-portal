@@ -68,13 +68,10 @@ export default function FilterShortlisted({ filterFunc }) {
                                     key={framework.value}
                                     value={framework.value}
                                     onSelect={(currentValue) => {
-                                        setValue(
-                                            currentValue === value
-                                                ? ""
-                                                : currentValue
-                                        );
+                                        const next = currentValue === value ? "" : currentValue;
+                                        setValue(next);
                                         setOpen(false);
-                                        filterFunc(currentValue);
+                                        filterFunc(next);
                                     }}
                                 >
                                     <Check

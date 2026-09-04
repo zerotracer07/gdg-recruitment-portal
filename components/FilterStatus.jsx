@@ -2,9 +2,7 @@
 
 import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
-
-import { reviews } from "@/constants";
-
+import { APPLICATION_STATUSES } from "@/constants";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { IoFilter } from "react-icons/io5";
@@ -22,17 +20,7 @@ import {
     PopoverTrigger,
 } from "@/components/ui/popover";
 
-let frameworks = [];
-
-reviews.forEach(
-    (r, index) =>
-        (frameworks[index] = {
-            value: r.name,
-            label: r.name,
-        })
-);
-
-export default function FilterDepartment({ filterFunc }) {
+export default function FilterStatus({ filterFunc }) {
     const [open, setOpen] = React.useState(false);
     const [value, setValue] = React.useState("");
 
@@ -43,16 +31,15 @@ export default function FilterDepartment({ filterFunc }) {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
+                    aria-label="Filter by application status"
                     className="w-[200px] justify-between"
                 >
                     {value ? (
-                        frameworks.find(
-                            (framework) => framework.value === value
-                        )?.label
+                        APPLICATION_STATUSES.find((s) => s.value === value)?.label
                     ) : (
                         <div className="flex gap-3 items-center justify-center">
                             <IoFilter />
-                            Department
+                            Status
                         </div>
                     )}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -60,14 +47,14 @@ export default function FilterDepartment({ filterFunc }) {
             </PopoverTrigger>
             <PopoverContent className="w-fit p-0">
                 <Command>
-                    <CommandInput placeholder="Search department..." />
+                    <CommandInput placeholder="Search status..." />
                     <CommandList>
-                        <CommandEmpty>No department found.</CommandEmpty>
+                        <CommandEmpty>No status found.</CommandEmpty>
                         <CommandGroup>
-                            {frameworks.map((framework) => (
+                            {APPLICATION_STATUSES.map((s) => (
                                 <CommandItem
-                                    key={framework.value}
-                                    value={framework.value}
+                                    key={s.value}
+                                    value={s.value}
                                     onSelect={(currentValue) => {
                                         const next = currentValue === value ? "" : currentValue;
                                         setValue(next);
@@ -78,12 +65,14 @@ export default function FilterDepartment({ filterFunc }) {
                                     <Check
                                         className={cn(
                                             "mr-2 h-4 w-4",
-                                            value === framework.value
-                                                ? "opacity-100"
-                                                : "opacity-0"
+                                            value === s.value ? "opacity-100" : "opacity-0"
                                         )}
                                     />
-                                    {framework.label}
+                                    <span
+                                        className="mr-2 inline-block h-2.5 w-2.5 rounded-full"
+                                        style={{ backgroundColor: s.color }}
+                                    />
+                                    {s.label}
                                 </CommandItem>
                             ))}
                         </CommandGroup>

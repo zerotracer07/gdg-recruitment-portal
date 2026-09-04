@@ -46,6 +46,7 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
   const [isFormOpen, setIsFormOpen] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [lastSavedAt, setLastSavedAt] = useState(null);
 
   const router = useRouter();
   const { submittedDepartments: contextSubmitted, markDepartmentsSubmitted } = useSubmissions();
@@ -200,7 +201,12 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
 
   useEffect(() => {
     if (!isDraftReady || !draftKey) return;
-    localStorage.setItem(draftKey, JSON.stringify({ values: watchedValues, submittedDepartments }));
+    try {
+      localStorage.setItem(draftKey, JSON.stringify({ values: watchedValues, submittedDepartments }));
+      setLastSavedAt(new Date());
+    } catch {
+      // storage full/blocked — form still works, draft just won't persist
+    }
   }, [draftKey, isDraftReady, submittedDepartments, watchedValues]);
 
   // Check if user is authenticated
@@ -357,6 +363,11 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
       <h1 className="mt-1 text-2xl font-extrabold tracking-tight sm:text-3xl">Application Form</h1>
       <p className="mt-1 text-sm text-muted-foreground">
         Applying to: <strong className="text-foreground">{departmentNames.join(", ")}</strong>
+        {isDraftReady && lastSavedAt && (
+          <span className="ml-2 text-xs" aria-live="polite">
+            · Draft auto-saved {lastSavedAt.toLocaleTimeString()}
+          </span>
+        )}
       </p>
 
       <hr className="my-6" />

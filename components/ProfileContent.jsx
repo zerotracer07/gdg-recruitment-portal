@@ -10,6 +10,60 @@ import { authClient } from "@/lib/auth-client";
 import { APPLICATION_STATUSES } from "@/constants";
 import { LogOut, ArrowRight } from "lucide-react";
 
+const TIMELINE = ["applied", "under_review", "interview"];
+
+function StatusTimeline({ status }) {
+  const current = status || "applied";
+  const decided = current === "accepted" || current === "rejected";
+  const accepted = current === "accepted";
+  const currentIdx = decided ? 3 : Math.max(0, TIMELINE.indexOf(current));
+  const steps = [
+    ...TIMELINE.map((v) => APPLICATION_STATUSES.find((s) => s.value === v)),
+    decided
+      ? { value: current, label: accepted ? "Selected" : "Not selected", color: accepted ? "#16a34a" : "#dc2626" }
+      : { value: "result", label: "Result", color: "#94a3b8" },
+  ];
+
+  return (
+    <div className="mt-3" aria-label={`Application progress: ${steps[currentIdx]?.label}`}>
+      <div className="flex items-center">
+        {steps.map((s, i) => {
+          const done = i < currentIdx || (decided && i <= currentIdx);
+          const isCurrent = i === currentIdx;
+          return (
+            <div key={s.value + i} className="flex flex-1 items-center last:flex-none">
+              <div className="flex flex-col items-center gap-1">
+                <span
+                  className={`flex h-5 w-5 items-center justify-center rounded-full border-2 text-[10px] font-bold ${
+                    isCurrent ? "ring-2 ring-offset-2" : ""
+                  }`}
+                  style={{
+                    borderColor: s.color,
+                    backgroundColor: done ? s.color : "transparent",
+                    color: done ? "#fff" : s.color,
+                    ["--tw-ring-color"]: s.color,
+                  }}
+                >
+                  {done ? "✓" : ""}
+                </span>
+                <span className="whitespace-nowrap text-[10px] font-medium text-muted-foreground">
+                  {s.label}
+                </span>
+              </div>
+              {i < steps.length - 1 && (
+                <span
+                  className="mx-1 mb-5 h-0.5 flex-1 rounded"
+                  style={{ backgroundColor: i < currentIdx ? s.color : "#e2e8f0" }}
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function ProfilePage() {
   const router = useRouter();
   const { data: session, isPending } = authClient.useSession();
@@ -136,20 +190,23 @@ export default function ProfilePage() {
               return (
                 <div
                   key={a.id || a._id}
-                  className="flex items-center justify-between gap-3 rounded-xl border p-4"
+                  className="rounded-xl border p-4"
                 >
-                  <div>
-                    <p className="text-sm font-bold">{a.Department}</p>
-                    <p className="text-xs text-muted-foreground">
-                      Applied{a.createdAt ? ` · ${new Date(a.createdAt).toLocaleDateString()}` : ""}
-                    </p>
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-bold">{a.Department}</p>
+                      <p className="text-xs text-muted-foreground">
+                        Applied{a.createdAt ? ` · ${new Date(a.createdAt).toLocaleDateString()}` : ""}
+                      </p>
+                    </div>
+                    <span
+                      className="shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold text-white"
+                      style={{ backgroundColor: meta?.color || "#64748b" }}
+                    >
+                      {meta?.label || "Applied"}
+                    </span>
                   </div>
-                  <span
-                    className="shrink-0 rounded-full px-2.5 py-1 text-[11px] font-bold text-white"
-                    style={{ backgroundColor: meta?.color || "#64748b" }}
-                  >
-                    {meta?.label || "Applied"}
-                  </span>
+                  <StatusTimeline status={a.status} />
                 </div>
               );
             })}
