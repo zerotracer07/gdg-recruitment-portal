@@ -33,6 +33,7 @@
     "@tiptap/pm": "^2.7.4",
     "@tiptap/react": "^2.7.4",
     "@tiptap/starter-kit": "^2.7.4",
+    "@vercel/speed-insights": "^2.0.0",
     "better-auth": "1.6.25",
     "better-auth-firestore": "1.2.8",
     "class-variance-authority": "^0.7.0",
