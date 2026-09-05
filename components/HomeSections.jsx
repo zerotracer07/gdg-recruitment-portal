@@ -4,9 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight, Code2, Rocket, Trophy, Users } from "lucide-react";
 import { reviews, technicalCards, nonTechnicalCards } from "@/constants";
-import Marquee from "@/components/magicui/marquee";
 import { MagicCard } from "@/components/magicui/magic-card";
 import BlurFade from "@/components/magicui/blur-fade";
+import Tilt from "@/components/Tilt";
 import CountUp from "@/components/CountUp";
 
 const perks = [
@@ -41,8 +41,8 @@ function DeptCard({ title, description, image, color, formLink }) {
     >
       <span
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-1"
-        style={{ backgroundColor: color }}
+        className="absolute inset-x-0 top-0 h-[3px]"
+        style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
       />
       <span className="flex items-start gap-4">
         <span
@@ -76,37 +76,11 @@ function DeptCard({ title, description, image, color, formLink }) {
   );
 }
 
-function DeptTicker() {
-  return (
-    <div
-      aria-hidden="true"
-      className="border-y bg-card/60 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-    >
-      <Marquee pauseOnHover className="[--duration:32s]">
-        {reviews.map((d) => (
-          <span
-            key={d.id}
-            className="mx-5 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground"
-          >
-            <span
-              className="h-2 w-2 rounded-full"
-              style={{ backgroundColor: d.tone }}
-            />
-            {d.name}
-          </span>
-        ))}
-      </Marquee>
-    </div>
-  );
-}
-
 export default function HomeSections() {
   const leadCount = reviews.flatMap((r) => r.leads ?? []).length;
 
   return (
     <>
-      <DeptTicker />
-
       {/* About GDG VITC */}
       <section className="border-t">
         <div className="mx-auto grid max-w-5xl gap-8 px-4 py-14 sm:grid-cols-[1.2fr_1fr] sm:py-20">
@@ -212,15 +186,17 @@ export default function HomeSections() {
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {perks.map((p, i) => (
               <BlurFade key={p.title} inView delay={0.06 * i}>
-                <div className="h-full rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-                  <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
-                    <p.icon className="h-5 w-5 text-primary" />
-                  </span>
-                  <h3 className="mt-3 text-[15px] font-bold">{p.title}</h3>
-                  <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
-                    {p.text}
-                  </p>
-                </div>
+                <Tilt className="h-full">
+                  <div className="h-full rounded-2xl border bg-card p-5 shadow-sm transition hover:shadow-lg">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10">
+                      <p.icon className="h-5 w-5 text-primary" />
+                    </span>
+                    <h3 className="mt-3 text-[15px] font-bold">{p.title}</h3>
+                    <p className="mt-1 text-[13px] leading-relaxed text-muted-foreground">
+                      {p.text}
+                    </p>
+                  </div>
+                </Tilt>
               </BlurFade>
             ))}
           </div>
