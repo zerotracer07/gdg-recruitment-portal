@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { toast } from "sonner";
 import DWASFWLoader from "@/components/GDGLoader";
+import BlurFade from "@/components/magicui/blur-fade";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -128,6 +129,7 @@ export default function SignInPage() {
       </div>
 
       <Card>
+        <BlurFade>
         <CardHeader>
           <CardTitle>{mode === "signin" ? "Sign In" : "Create Account"}</CardTitle>
           <CardDescription>
@@ -219,6 +221,7 @@ export default function SignInPage() {
             </Button>
           </form>
         </CardContent>
+        </BlurFade>
       </Card>
     </main>
     </div>

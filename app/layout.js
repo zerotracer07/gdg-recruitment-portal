@@ -8,6 +8,8 @@ import BackgroundDecor from "@/components/BackgroundDecor";
 import CursorTracker from "@/components/CursorTracker";
 // Styling
 import "./globals.css";
+// Reduced-motion: framer-motion animations defer to the OS setting globally
+import { MotionConfig } from "framer-motion";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +23,14 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <SubmissionsProvider>
-            <BackgroundDecor />
-            {children}
-            <Toaster />
-            <CursorTracker />
-          </SubmissionsProvider>
+          <MotionConfig reducedMotion="user">
+            <SubmissionsProvider>
+              <BackgroundDecor />
+              {children}
+              <Toaster />
+              <CursorTracker />
+            </SubmissionsProvider>
+          </MotionConfig>
         </ThemeProvider>
       </body>
     </html>

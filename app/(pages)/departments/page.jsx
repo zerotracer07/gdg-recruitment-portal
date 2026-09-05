@@ -9,6 +9,7 @@ import { reviews } from "@/constants";
 import { useSubmissions } from "@/components/SubmissionsProvider";
 import { Check, ArrowRight } from "lucide-react";
 import InitialAvatar from "@/components/InitialAvatar";
+import BlurFade from "@/components/magicui/blur-fade";
 
 const departments = reviews;
 
@@ -51,10 +52,11 @@ const DepartmentsListPage = () => {
     <main className="min-h-screen bg-background text-foreground">
       <NavBar />
       <div className="mx-auto max-w-5xl px-4 py-10">
-        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-          Step 01 · Select
-        </p>
-        <div className="mt-1 flex flex-wrap items-end justify-between gap-4">
+        <BlurFade>
+          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            Step 01 · Select
+          </p>
+          <div className="mt-1 flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
               Pick your departments
@@ -90,7 +92,9 @@ const DepartmentsListPage = () => {
             style={{ width: `${(selectedDepartments.length / 2) * 100}%` }}
           />
         </div>
+        </BlurFade>
 
+        <BlurFade delay={0.1}>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2">
           {departments.map((department) => {
             const isSelected = selectedDepartments.includes(department.name);
@@ -174,6 +178,7 @@ const DepartmentsListPage = () => {
             );
           })}
         </ul>
+        </BlurFade>
       </div>
       <Footer />
     </main>
