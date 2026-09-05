@@ -352,7 +352,7 @@ export default function SignInPage() {
             <Button
               type="submit"
               disabled={submitting || otpSending}
-              className="w-full"
+              className="btn-shine h-11 w-full rounded-xl text-sm"
             >
               {mode === "signin"
                 ? submitting ? "Signing in..." : "Sign In"

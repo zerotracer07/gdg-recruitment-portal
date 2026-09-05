@@ -516,7 +516,7 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:-translate-y-0.5 disabled:translate-none disabled:opacity-50 sm:w-auto sm:px-8"
+              className="btn-shine w-full rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:-translate-y-0.5 disabled:translate-none disabled:opacity-50 sm:w-auto sm:px-8"
             >
               {isSubmitting ? "Submitting..." : "Submit Application"}
             </button>

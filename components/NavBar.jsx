@@ -50,10 +50,8 @@ const NavBar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b transition-shadow ${
-        scrolled
-          ? "bg-background/90 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)]"
-          : "bg-background"
+      className={`sticky top-0 z-40 border-b bg-background/80 backdrop-blur-md transition-all ${
+        scrolled ? "shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)]" : ""
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">
@@ -127,7 +125,7 @@ const NavBar = () => {
       </nav>
 
       {open && (
-        <div className="border-t bg-background px-4 py-3 sm:hidden">
+        <div className="border-t bg-background/90 px-4 py-3 backdrop-blur-md sm:hidden">
           {links.map((l) => (
             <Link
               key={l.href}

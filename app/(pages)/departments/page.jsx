@@ -80,7 +80,7 @@ const DepartmentsListPage = () => {
               type="button"
               onClick={goToApplication}
               disabled={selectedIds.length === 0}
-              className="group inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:-translate-y-0.5 disabled:translate-none disabled:opacity-40 disabled:shadow-none enabled:shadow-[0_8px_28px_-8px_hsl(var(--primary)/0.65)] enabled:hover:shadow-[0_12px_32px_-8px_hsl(var(--primary)/0.75)]"
+              className="btn-shine group inline-flex items-center gap-1.5 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:-translate-y-0.5 disabled:translate-none disabled:opacity-40 disabled:shadow-none enabled:shadow-[0_8px_28px_-8px_hsl(var(--primary)/0.65)] enabled:hover:shadow-[0_12px_32px_-8px_hsl(var(--primary)/0.75)]"
             >
               Continue
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />

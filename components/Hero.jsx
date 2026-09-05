@@ -31,10 +31,10 @@ export default function Hero() {
       {/* Aurora mesh behind hero (purple-blue-cyan) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[-140px] h-[480px] w-[860px] max-w-none -translate-x-1/2 opacity-70 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-[-140px] h-[480px] w-[860px] max-w-none -translate-x-1/2 opacity-90 blur-3xl"
         style={{
           background:
-            "conic-gradient(from 180deg at 50% 50%, rgba(66,133,244,0.20), rgba(155,114,242,0.18), rgba(52,168,83,0.14), rgba(66,133,244,0.20))",
+            "conic-gradient(from 180deg at 50% 50%, rgba(66,133,244,0.30), rgba(155,114,242,0.26), rgba(52,168,83,0.20), rgba(66,133,244,0.30))",
         }}
       />
       {/* Orbiting accents around the title */}
