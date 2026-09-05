@@ -132,7 +132,7 @@ const DepartmentsListPage = () => {
                   />
                   <span className="flex min-w-0 items-start gap-3">
                     <span
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition duration-300 group-hover:scale-110"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-white transition duration-300 group-hover:scale-110"
                       style={{
                         background: "linear-gradient(135deg, #0f172a, #334155)",
                         border: `1.5px solid ${department.tone || "#4285F4"}`,
