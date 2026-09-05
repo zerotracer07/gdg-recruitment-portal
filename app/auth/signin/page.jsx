@@ -27,6 +27,13 @@ export default function SignInPage() {
   const [password, setPassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  // OTP-gated signup: details -> code -> verified account
+  const [otpStep, setOtpStep] = useState("details"); // "details" | "code"
+  const [otp, setOtp] = useState("");
+  const [otpSending, setOtpSending] = useState(false);
+  const [resendIn, setResendIn] = useState(0);
+  const [expiresAt, setExpiresAt] = useState(0);
+  const [nowTick, setNowTick] = useState(Date.now());
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
 
@@ -35,6 +42,23 @@ export default function SignInPage() {
       router.push("/");
     }
   }, [session, isPending, router, mounted]);
+
+  // Countdown tickers for OTP expiry + resend cooldown
+  useEffect(() => {
+    if (mode !== "signup" || otpStep !== "code") return;
+    const t = setInterval(() => {
+      setNowTick(Date.now());
+      setResendIn((s) => (s > 0 ? s - 1 : 0));
+    }, 1000);
+    return () => clearInterval(t);
+  }, [mode, otpStep]);
+
+  const resetOtp = () => {
+    setOtpStep("details");
+    setOtp("");
+    setResendIn(0);
+    setExpiresAt(0);
+  };
 
   if (!mounted || isPending) {
     return <DWASFWLoader />;
@@ -66,6 +90,40 @@ export default function SignInPage() {
     }
   };
 
+  const sendCode = async () => {
+    if (!name) {
+      toast.error("Please enter your name.");
+      return false;
+    }
+    if (!email) {
+      toast.error("Please enter your email address.");
+      return false;
+    }
+    setOtpSending(true);
+    try {
+      const res = await authClient.emailOtp.sendVerificationOtp({
+        email,
+        type: "email-verification",
+      });
+      if (res?.error) {
+        toast.error(res.error.message || "Could not send code. Check the email address.");
+        return false;
+      }
+      setOtpStep("code");
+      setOtp("");
+      setExpiresAt(Date.now() + 5 * 60 * 1000);
+      setResendIn(30);
+      toast.success("Verification code sent! Check your inbox (and spam).");
+      return true;
+    } catch (err) {
+      console.error("OTP send error:", err);
+      toast.error("Could not send code. Please try again.");
+      return false;
+    } finally {
+      setOtpSending(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
@@ -75,14 +133,28 @@ export default function SignInPage() {
 
     // NOTE (testing): VIT email-domain check removed. Any email works.
 
-    if (mode === "signup" && !name) {
-      toast.error("Please enter your name.");
+    // Signup is gated behind email OTP verification
+    if (mode === "signup" && otpStep === "details") {
+      await sendCode();
       return;
     }
 
-    setSubmitting(true);
-    try {
-      if (mode === "signup") {
+    if (mode === "signup") {
+      if (otp.trim().length !== 6) {
+        toast.error("Enter the 6-digit verification code.");
+        return;
+      }
+      setSubmitting(true);
+      try {
+        const check = await authClient.emailOtp.checkVerificationOtp({
+          email,
+          type: "email-verification",
+          otp: otp.trim(),
+        });
+        if (check?.error) {
+          toast.error(check.error.message || "Invalid or expired code.");
+          return;
+        }
         const res = await authClient.signUp.email({
           email,
           password,
@@ -92,21 +164,30 @@ export default function SignInPage() {
         if (res?.error) {
           toast.error(res.error.message || "Failed to create account.");
         } else {
-          toast.success("Account created successfully!");
+          toast.success("Email verified — account created!");
           router.push("/");
         }
+      } catch (err) {
+        console.error("Signup error:", err);
+        toast.error("Verification failed. Please try again.");
+      } finally {
+        setSubmitting(false);
+      }
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const res = await authClient.signIn.email({
+        email,
+        password,
+        callbackURL: "/",
+      });
+      if (res?.error) {
+        toast.error(res.error.message || "Invalid credentials.");
       } else {
-        const res = await authClient.signIn.email({
-          email,
-          password,
-          callbackURL: "/",
-        });
-        if (res?.error) {
-          toast.error(res.error.message || "Invalid credentials.");
-        } else {
-          toast.success("Signed in successfully!");
-          router.push("/");
-        }
+        toast.success("Signed in successfully!");
+        router.push("/");
       }
     } catch (err) {
       console.error("Auth error:", err);
@@ -135,7 +216,9 @@ export default function SignInPage() {
           <CardDescription>
             {mode === "signin"
               ? "Sign in to start your application."
-              : "Create an account to apply (max 2 departments)."}
+              : otpStep === "code"
+                ? "Enter the code to verify your email."
+                : "Create an account to apply (max 2 departments)."}
             <span className="mt-1 block text-xs">
               Testing mode: any email works (VIT restriction off).
             </span>
@@ -145,7 +228,7 @@ export default function SignInPage() {
               type="button"
               variant={mode === "signin" ? "default" : "outline"}
               size="sm"
-              onClick={() => setMode("signin")}
+              onClick={() => { setMode("signin"); resetOtp(); }}
             >
               Sign In
             </Button>
@@ -153,7 +236,7 @@ export default function SignInPage() {
               type="button"
               variant={mode === "signup" ? "default" : "outline"}
               size="sm"
-              onClick={() => setMode("signup")}
+              onClick={() => { setMode("signup"); resetOtp(); }}
             >
               Create Account
             </Button>
@@ -181,7 +264,7 @@ export default function SignInPage() {
             <span className="h-px flex-1 bg-border" />
           </div>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {mode === "signup" && (
+            {mode === "signup" && otpStep === "details" && (
               <div className="space-y-1.5">
                 <Label htmlFor="name">Full Name</Label>
                 <Input
@@ -194,30 +277,84 @@ export default function SignInPage() {
                 />
               </div>
             )}
-            <div className="space-y-1.5">
-              <Label htmlFor="email">Email Address</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="name@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <Button type="submit" disabled={submitting} className="w-full">
-              {submitting ? "Processing..." : mode === "signin" ? "Sign In" : "Create Account"}
+            {(mode === "signin" || otpStep === "details") && (
+              <>
+                <div className="space-y-1.5">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    disabled={mode === "signup" && otpStep === "code"}
+                  />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    disabled={mode === "signup" && otpStep === "code"}
+                  />
+                </div>
+              </>
+            )}
+            {mode === "signup" && otpStep === "code" && (
+              <div className="space-y-3 rounded-xl border bg-background p-4">
+                <p className="text-sm">
+                  Code sent to <strong>{email}</strong>.{" "}
+                  <button
+                    type="button"
+                    onClick={resetOtp}
+                    className="font-semibold text-primary underline"
+                  >
+                    Wrong email?
+                  </button>
+                </p>
+                <div className="space-y-1.5">
+                  <Label htmlFor="otp">6-digit verification code</Label>
+                  <Input
+                    id="otp"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    placeholder="••••••"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, "").slice(0, 6))}
+                    required
+                    className="text-center text-2xl font-bold tracking-[0.5em]"
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground">
+                  {expiresAt > nowTick
+                    ? `Expires in ${Math.floor((expiresAt - nowTick) / 60000)}:${String(Math.floor(((expiresAt - nowTick) % 60000) / 1000)).padStart(2, "0")}`
+                    : "Code expired — request a new one."}{" "}
+                  <button
+                    type="button"
+                    disabled={otpSending || resendIn > 0}
+                    onClick={sendCode}
+                    className="font-semibold text-primary underline disabled:text-muted-foreground disabled:no-underline"
+                  >
+                    {otpSending ? "Sending..." : resendIn > 0 ? `Resend in ${resendIn}s` : "Resend code"}
+                  </button>
+                </p>
+              </div>
+            )}
+            <Button
+              type="submit"
+              disabled={submitting || otpSending}
+              className="w-full"
+            >
+              {mode === "signin"
+                ? submitting ? "Signing in..." : "Sign In"
+                : otpStep === "details"
+                  ? otpSending ? "Sending code..." : "Send verification code"
+                  : submitting ? "Verifying..." : "Verify & Create Account"}
             </Button>
           </form>
         </CardContent>
