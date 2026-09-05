@@ -8,8 +8,10 @@ import { toast } from "sonner";
 import { reviews } from "@/constants";
 import { useSubmissions } from "@/components/SubmissionsProvider";
 import { Check, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 import InitialAvatar from "@/components/InitialAvatar";
 import BlurFade from "@/components/magicui/blur-fade";
+import Scramble from "@/components/Scramble";
 
 const departments = reviews;
 
@@ -78,7 +80,7 @@ const DepartmentsListPage = () => {
               type="button"
               onClick={goToApplication}
               disabled={selectedIds.length === 0}
-              className="group inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition hover:-translate-y-0.5 disabled:translate-none disabled:opacity-40 disabled:shadow-none"
+              className="group inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-md shadow-primary/20 transition-all hover:-translate-y-0.5 disabled:translate-none disabled:opacity-40 disabled:shadow-none enabled:shadow-[0_8px_28px_-8px_hsl(var(--primary)/0.65)] enabled:hover:shadow-[0_12px_32px_-8px_hsl(var(--primary)/0.75)]"
             >
               Continue
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
@@ -96,17 +98,23 @@ const DepartmentsListPage = () => {
 
         <BlurFade delay={0.1}>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-          {departments.map((department) => {
+          {departments.map((department, index) => {
             const isSelected = selectedDepartments.includes(department.name);
             const isSubmitted = submittedDepartments.includes(department.name);
             const DeptIcon = department.icon;
             const checked = isSelected || isSubmitted;
             const label = `${department.name}${isSubmitted ? " (already submitted)" : ""}`;
             return (
-              <li
+              <motion.li
                 key={department.id}
-                className={`group relative overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring ${
-                  isSelected ? "border-transparent ring-2 ring-primary" : ""
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.4), ease: "easeOut" }}
+                className={`group relative overflow-hidden rounded-2xl border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_16px_44px_-14px_hsl(var(--primary)/0.45)] has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-ring ${
+                  isSelected
+                    ? "border-primary/70 bg-primary/[0.05] shadow-[0_0_32px_-10px_hsl(var(--primary)/0.65)] ring-2 ring-primary"
+                    : ""
                 } ${isSubmitted ? "opacity-60" : ""}`}
               >
                 <label
@@ -134,7 +142,9 @@ const DepartmentsListPage = () => {
                       {DeptIcon && <DeptIcon width={24} height={24} />}
                     </span>
                     <span className="min-w-0">
-                      <strong className="text-base">{department.name}</strong>
+                      <strong className="text-base">
+                        <Scramble text={department.name} />
+                      </strong>
                       {isSubmitted && (
                         <span className="ml-2 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium">
                           Submitted
@@ -148,7 +158,7 @@ const DepartmentsListPage = () => {
                           {department.leads.map((l) => (
                             <span
                               key={l.name}
-                              className="inline-flex items-center gap-1.5 rounded-full border bg-background py-0.5 pl-0.5 pr-2.5 text-[11px] font-medium"
+                              className="inline-flex items-center gap-1.5 rounded-full border bg-background py-0.5 pl-0.5 pr-2.5 text-[11px] font-medium transition hover:scale-105 hover:border-primary/50 hover:shadow-sm"
                             >
                               <InitialAvatar
                                 name={l.name}
@@ -173,7 +183,7 @@ const DepartmentsListPage = () => {
                     <Check className="h-4 w-4" />
                   </span>
                 </label>
-              </li>
+              </motion.li>
             );
           })}
         </ul>

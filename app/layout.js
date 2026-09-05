@@ -27,6 +27,19 @@ const instrumentSerif = Instrument_Serif({
 export const metadata = {
   title: "GDG VITC | Recruitment Portal",
   description: "Recruitment portal for GDG VITC",
+  metadataBase: new URL("https://gdg-recruitment-portal.vercel.app"),
+  openGraph: {
+    title: "GDG VITC | Recruitment Portal",
+    description: "Pick up to two departments and apply in minutes. Recruitment 2026 is open.",
+    type: "website",
+    images: ["/icon.svg"],
+  },
+  twitter: {
+    card: "summary",
+    title: "GDG VITC | Recruitment Portal",
+    description: "Pick up to two departments and apply in minutes. Recruitment 2026 is open.",
+    images: ["/icon.svg"],
+  },
 };
 
 export default function RootLayout({ children }) {

@@ -50,8 +50,10 @@ const NavBar = () => {
 
   return (
     <header
-      className={`sticky top-0 z-40 border-b bg-background transition-shadow ${
-        scrolled ? "shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)]" : ""
+      className={`sticky top-0 z-40 border-b transition-shadow ${
+        scrolled
+          ? "bg-background/90 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.25)]"
+          : "bg-background"
       }`}
     >
       <nav className="mx-auto flex h-16 max-w-5xl items-center justify-between px-4">

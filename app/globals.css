@@ -57,7 +57,15 @@
     @apply bg-background text-foreground;
     margin: 0;
     padding: 0;
+    line-height: 1.625;
   }
+}
+
+/* Smooth theme switching without flash (utilities override where present) */
+* {
+  transition-property: background-color, border-color;
+  transition-duration: 0.25s;
+  transition-timing-function: ease;
 }
 
 /* Display + serif accent fonts */

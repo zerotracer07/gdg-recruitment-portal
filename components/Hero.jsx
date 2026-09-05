@@ -28,9 +28,14 @@ export default function Hero() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/[0.07] via-transparent to-transparent"
       />
+      {/* Aurora mesh behind hero (purple-blue-cyan) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-[42rem] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl"
+        className="pointer-events-none absolute left-1/2 top-[-140px] h-[480px] w-[860px] max-w-none -translate-x-1/2 opacity-70 blur-3xl"
+        style={{
+          background:
+            "conic-gradient(from 180deg at 50% 50%, rgba(66,133,244,0.20), rgba(155,114,242,0.18), rgba(52,168,83,0.14), rgba(66,133,244,0.20))",
+        }}
       />
       {/* Orbiting accents around the title */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden sm:block">
@@ -56,7 +61,7 @@ export default function Hero() {
         <BlurFade delay={0.1}>
           <h1 className="font-display mt-4 bg-gradient-to-b from-foreground via-foreground to-foreground/60 bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-7xl">
             Recruitment{" "}
-            <span className="bg-gradient-to-r from-[#4285F4] via-[#9B72F2] to-[#EA4335] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#4285F4] via-[#9B72F2] to-[#EA4335] bg-clip-text text-transparent drop-shadow-[0_0_22px_rgba(123,97,255,0.35)]">
               2026
             </span>
           </h1>
