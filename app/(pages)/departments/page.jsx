@@ -188,6 +188,25 @@ const DepartmentsListPage = () => {
           })}
         </ul>
         </BlurFade>
+        {/* Spacer so the sticky mobile bar never covers the last card */}
+        <div aria-hidden="true" className="h-20 sm:hidden" />
+      </div>
+      {/* Mobile sticky apply bar (departments page only — no clash with the home banner) */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t bg-background/90 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur-md sm:hidden">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
+          <span className="text-xs font-semibold" aria-live="polite">
+            {selectedDepartments.length} / 2 selected
+          </span>
+          <button
+            type="button"
+            onClick={goToApplication}
+            disabled={selectedIds.length === 0}
+            className="btn-shine inline-flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all disabled:opacity-40 disabled:shadow-none enabled:active:scale-[0.98]"
+          >
+            Continue
+            <ArrowRight className="h-4 w-4" />
+          </button>
+        </div>
       </div>
       <Footer />
     </main>

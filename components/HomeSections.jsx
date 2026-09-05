@@ -8,6 +8,7 @@ import { MagicCard } from "@/components/magicui/magic-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import Tilt from "@/components/Tilt";
 import Scramble from "@/components/Scramble";
+import SectionHeading from "@/components/SectionHeading";
 import CountUp from "@/components/CountUp";
 
 const perks = [
@@ -86,12 +87,10 @@ export default function HomeSections() {
         <div className="mx-auto grid max-w-5xl gap-8 px-4 py-14 sm:grid-cols-[1.2fr_1fr] sm:py-20">
           <BlurFade inView>
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                About GDG VITC
-              </p>
-              <h2 className="font-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-                Google Developer Groups on Campus, VIT Chennai
-              </h2>
+              <SectionHeading
+                eyebrow="About GDG VITC"
+                title="Google Developer Groups on Campus, VIT Chennai"
+              />
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 GDG VITC brings VIT Chennai students together to learn technology
                 by shipping it — practical sessions, team projects, hackathons,
@@ -133,14 +132,10 @@ export default function HomeSections() {
         <div className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
           <BlurFade inView>
             <div className="flex flex-wrap items-end justify-between gap-3">
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                  Find your crew
-                </p>
-                <h2 className="font-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-                  Technical departments
-                </h2>
-              </div>
+              <SectionHeading
+                eyebrow="Find your crew"
+                title="Technical departments"
+              />
               <Link
                 href="/departments"
                 className="inline-flex items-center gap-1 text-sm font-semibold text-primary"
@@ -158,9 +153,7 @@ export default function HomeSections() {
           </div>
 
           <BlurFade inView>
-            <h2 className="font-display mt-12 text-2xl font-bold tracking-tight sm:text-3xl">
-              Community & creative
-            </h2>
+            <SectionHeading title="Community & creative" className="mt-12" />
           </BlurFade>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {nonTechnicalCards.map((c, i) => (
@@ -176,12 +169,7 @@ export default function HomeSections() {
       <section className="border-t">
         <div className="mx-auto max-w-5xl px-4 py-14 sm:py-20">
           <BlurFade inView>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-              Why join
-            </p>
-          <h2 className="font-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-            Proof over promises
-          </h2>
+            <SectionHeading eyebrow="Why join" title="Proof over promises" />
           </BlurFade>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {perks.map((p, i) => (

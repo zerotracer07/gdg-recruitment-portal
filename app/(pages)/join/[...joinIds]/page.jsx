@@ -58,7 +58,7 @@ const JoinDepartmentPage = ({ params }) => {
             <button
               type="button"
               onClick={() => router.push("/auth/signin")}
-              className="mt-5 w-full rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
+              className="mt-5 w-full rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:opacity-90"
             >
               Sign In
             </button>
