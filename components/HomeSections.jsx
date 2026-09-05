@@ -40,15 +40,14 @@ function DeptCard({ title, description, image, color, formLink }) {
       gradientOpacity={0.25}
       className="border bg-card p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
     >
-      <span
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[3px]"
-        style={{ background: `linear-gradient(90deg, transparent, ${color}, transparent)` }}
-      />
       <span className="flex items-start gap-4">
         <span
           className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition duration-300 group-hover:rotate-6 group-hover:scale-110"
-          style={{ backgroundColor: `${color}1a` }}
+          style={{
+            background: "linear-gradient(135deg, #0f172a, #334155)",
+            border: `1.5px solid ${color}`,
+            boxShadow: `0 0 18px -6px ${color}`,
+          }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={image} alt="" className="h-7 w-7" loading="lazy" />

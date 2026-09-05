@@ -109,11 +109,6 @@ const DepartmentsListPage = () => {
                   isSelected ? "border-transparent ring-2 ring-primary" : ""
                 } ${isSubmitted ? "opacity-60" : ""}`}
               >
-                <span
-                  aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1"
-                  style={{ backgroundColor: department.tone || "var(--primary)" }}
-                />
                 <label
                   className={`flex items-start justify-between gap-3 ${
                     isSubmitted ? "cursor-not-allowed" : "cursor-pointer"
@@ -129,8 +124,12 @@ const DepartmentsListPage = () => {
                   />
                   <span className="flex min-w-0 items-start gap-3">
                     <span
-                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
-                      style={{ backgroundColor: `${department.tone || "#4285F4"}1a` }}
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition duration-300 group-hover:scale-110"
+                      style={{
+                        background: "linear-gradient(135deg, #0f172a, #334155)",
+                        border: `1.5px solid ${department.tone || "#4285F4"}`,
+                        boxShadow: `0 0 16px -6px ${department.tone || "#4285F4"}`,
+                      }}
                     >
                       {DeptIcon && <DeptIcon width={24} height={24} />}
                     </span>
