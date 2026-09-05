@@ -12,23 +12,23 @@ import CountUp from "@/components/CountUp";
 const perks = [
   {
     icon: Code2,
-    title: "Hands-on workshops",
-    text: "Learn by building — Android, web, ML, cloud and design sessions run by the leads themselves.",
+    title: "Skill-first sessions",
+    text: "Short, practical sessions on Android, web, ML, cloud, and design — taught by the leads.",
   },
   {
     icon: Rocket,
-    title: "Real projects",
-    text: "Ship production apps, sites and games used by thousands of students on campus.",
+    title: "Ship real work",
+    text: "Contribute to live apps, sites, and games that actual students use.",
   },
   {
     icon: Trophy,
-    title: "Hackathons & contests",
-    text: "Compete in CP contests, game jams and national hackathons with a team behind you.",
+    title: "Compete together",
+    text: "Coding contests, game jams, and hackathons with teammates beside you.",
   },
   {
     icon: Users,
-    title: "Community & network",
-    text: "Events, sponsors and sister communities — plus Google developer resources and swag.",
+    title: "People and exposure",
+    text: "Meet sponsors, sibling communities, and Google developer programs — plus the swag.",
   },
 ];
 
@@ -119,11 +119,10 @@ export default function HomeSections() {
                 Google Developer Groups on Campus, VIT Chennai
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                GDG VITC is a student-run developer community powered by Google
-                developers technologies. We run workshops, build real products,
-                compete in hackathons, and help members grow from curious
-                beginners to confident builders — across {reviews.length}{" "}
-                departments led by {leadCount} student leads.
+                GDG VITC brings VIT Chennai students together to learn technology
+                by shipping it — practical sessions, team projects, hackathons,
+                and events across {reviews.length} departments guided by{" "}
+                {leadCount} student leads.
               </p>
               <Link
                 href="/departments"
@@ -207,7 +206,7 @@ export default function HomeSections() {
               Why join
             </p>
             <h2 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
-              More than a club on your resume
+              Proof over promises
             </h2>
           </BlurFade>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">

@@ -101,12 +101,15 @@ export default function SignInPage() {
     }
     setOtpSending(true);
     try {
-      const res = await authClient.emailOtp.sendVerificationOtp({
-        email,
-        type: "email-verification",
+      const res = await fetch("/api/auth/send-code", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
       });
-      if (res?.error) {
-        toast.error(res.error.message || "Could not send code. Check the email address.");
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        if (res.status === 429) setResendIn(Math.ceil((data.retryAfterMs || 30000) / 1000));
+        toast.error(data.message || "Could not send code. Check the email address.");
         return false;
       }
       setOtpStep("code");
@@ -146,13 +149,14 @@ export default function SignInPage() {
       }
       setSubmitting(true);
       try {
-        const check = await authClient.emailOtp.checkVerificationOtp({
-          email,
-          type: "email-verification",
-          otp: otp.trim(),
+        const checkRes = await fetch("/api/auth/verify-code", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, otp: otp.trim() }),
         });
-        if (check?.error) {
-          toast.error(check.error.message || "Invalid or expired code.");
+        const checkData = await checkRes.json().catch(() => ({}));
+        if (!checkRes.ok) {
+          toast.error(checkData.message || "Invalid or expired code.");
           return;
         }
         const res = await authClient.signUp.email({

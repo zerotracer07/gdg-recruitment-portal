@@ -50,10 +50,10 @@ export default function Hero() {
           </h1>
         </BlurFade>
         <BlurFade delay={0.18}>
-          <p className="mt-3 text-lg font-medium">Ready to make your mark?</p>
+          <p className="mt-3 text-lg font-medium">Twelve departments. One community.</p>
           <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Join GDG VITC departments and work on real-world projects — apps,
-            websites, games, AI, events and more. Your journey starts here.
+            Apply to the teams where you will learn fastest — then ship real
+            apps, sites, games, models, and events alongside them.
           </p>
         </BlurFade>
         <BlurFade delay={0.26}>

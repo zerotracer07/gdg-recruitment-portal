@@ -22,8 +22,7 @@ const Footer = () => {
             </span>
           </Link>
           <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-muted-foreground">
-            Workshops, real projects, hackathons and community — across 12
-            student-led departments.
+            Twelve departments. One community. Zero spectators.
           </p>
         </div>
         <nav aria-label="Explore">

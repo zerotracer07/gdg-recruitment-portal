@@ -60,7 +60,7 @@ export const reviews = [
       icon: ManageAccounts,
       tone: "#8ab4f8",
       name: "Management",
-      description: "Operations, logistics and the people who make events happen.",
+      description: "The crew that plans, coordinates, and keeps every event running.",
       leads: [{ name: "Dhyan", role: "Management Lead" }],
     },
     {
@@ -68,7 +68,7 @@ export const reviews = [
       icon: Campaign,
       tone: "#FF7A6B",
       name: "Publicity",
-      description: "Our voice online — reels, posts & campaigns.",
+      description: "The team behind the feed — videos, posts, and campaigns.",
       leads: [
         { name: "Vedanti", role: "Publicity Lead" },
         { name: "Ananya Harithas", role: "Publicity Lead" },
@@ -79,7 +79,7 @@ export const reviews = [
       icon: ConnectWithoutContact,
       tone: "#FFD45E",
       name: "Outreach",
-      description: "Partnerships, sponsors & sister communities.",
+      description: "The bridge to sponsors, partners, and fellow communities.",
       leads: [
         { name: "Adarsh B Poduval", role: "Outreach Lead" },
         { name: "Sumedh Patange", role: "Outreach Lead" },
@@ -90,7 +90,7 @@ export const reviews = [
       icon: DesignServices,
       tone: "#FF7A6B",
       name: "UI/UX",
-      description: "Research, wireframes & interfaces people love.",
+      description: "User research, wireframes, and interfaces that feel effortless.",
       leads: [{ name: "Adil O", role: "UI/UX Lead" }],
     },
     {
@@ -98,7 +98,7 @@ export const reviews = [
       icon: Palette,
       tone: "#FFD45E",
       name: "Creatives",
-      description: "Branding, posters & the visual identity of GDG VITC.",
+      description: "Posters, branding, and the visual voice of GDG VITC.",
       leads: [
         { name: "Samriddhi", role: "Creatives Lead" },
         { name: "Sadhana", role: "Creatives Co-Lead" },
@@ -109,7 +109,7 @@ export const reviews = [
       icon: Language,
       tone: "#8AB4F8",
       name: "Web Dev",
-      description: "Modern frontends, full-stack apps & the open web.",
+      description: "Responsive sites and full-stack apps for the open web.",
       leads: [{ name: "Surjyadip Sen", role: "Web Dev Lead" }],
     },
     {
@@ -117,7 +117,7 @@ export const reviews = [
       icon: Mobile2,
       tone: "#6EE7A0",
       name: "App Dev",
-      description: "Android & cross-platform apps with Kotlin & Flutter.",
+      description: "Native and cross-platform mobile apps with Kotlin and Flutter.",
       leads: [{ name: "Hardik Prem", role: "App Dev Lead" }],
     },
     {
@@ -125,7 +125,7 @@ export const reviews = [
       icon: SportsEsports,
       tone: "#FF7A6B",
       name: "Game Dev",
-      description: "Building games with Unity, Godot & the web.",
+      description: "Playable worlds built with Unity, Godot, and web tech.",
       leads: [
         { name: "Kingshuk", role: "Game Dev Lead" },
         { name: "Kanha Arjun Jain", role: "Game Dev Lead" },
@@ -136,7 +136,7 @@ export const reviews = [
       icon: Analytics,
       tone: "#8AB4F8",
       name: "Data Science",
-      description: "ML, analytics & making sense of messy data.",
+      description: "Machine learning and analytics that turn raw data into insight.",
       leads: [{ name: "Srivarshini S", role: "Data Science Lead" }],
     },
     {
@@ -144,7 +144,7 @@ export const reviews = [
       icon: Cloud,
       tone: "#FFD45E",
       name: "Cloud & DevOps",
-      description: "Everything about backend.",
+      description: "Backends, infrastructure, and everything that keeps apps online.",
       leads: [{ name: "V Srivatsan", role: "Cloud & DevOps Lead" }],
     },
     {
@@ -152,7 +152,7 @@ export const reviews = [
       icon: Hub,
       tone: "#FF7A6B",
       name: "Blockchain",
-      description: "Web3, smart contracts & decentralized apps.",
+      description: "Decentralised apps, smart contracts, and Web3 tooling.",
       leads: [{ name: "Aditi Singh", role: "Blockchain Lead" }],
     },
     {
@@ -160,7 +160,7 @@ export const reviews = [
       icon: Trophy,
       tone: "#6EE7A0",
       name: "Competitive Programming",
-      description: "DSA, contests & cracking that dream internship.",
+      description: "Algorithms, contests, and interview-ready problem solving.",
       leads: [],
     },
 ];
@@ -611,7 +611,7 @@ export const technicalCards = [
   {
     title: "Blockchain",
     description:
-      "Web3, smart contracts & decentralized apps.",
+      "Decentralised apps, smart contracts, and Web3 tooling.",
     color: "#FF7A6B",
     image: "/assets/images/icons/blockchain.svg",
     formLink: "/join/6a89c4e2-7b19-4f32-821e-9821a41b5201",
@@ -619,7 +619,7 @@ export const technicalCards = [
   {
     title: "Cloud &\nDevOps",
     description:
-      "Everything about backend.",
+      "Backends, infrastructure, and everything that keeps apps online.",
     color: "#FBBC04",
     image: "/assets/images/icons/cloud.svg",
     formLink: "/join/a1d920df-9eb9-49eb-b3a4-e4a3d1245ede", // Cloud & DevOps ID
@@ -627,7 +627,7 @@ export const technicalCards = [
   {
     title: "Game Dev",
     description:
-      "Building games with Unity, Godot & the web.",
+      "Playable worlds built with Unity, Godot, and web tech.",
     color: "#4285F4",
     image: "/assets/images/icons/game-dev.svg",
     formLink: "/join/9055864f-c7dc-44cd-91d5-8759d32a496a",
@@ -635,7 +635,7 @@ export const technicalCards = [
   {
     title: "App Dev",
     description:
-      "Android & cross-platform apps with Kotlin & Flutter.",
+      "Native and cross-platform mobile apps with Kotlin and Flutter.",
     color: "#EA4335",
     image: "/assets/images/icons/app-dev.svg",
     formLink: "/join/339f0f8a-72f2-44b9-92ab-2b0d4dcfa0f6",
@@ -643,7 +643,7 @@ export const technicalCards = [
   {
     title: "UI/UX",
     description:
-      "Research, wireframes & interfaces people love.",
+      "User research, wireframes, and interfaces that feel effortless.",
     color: "#0F9D58",
     image: "/assets/images/icons/ui-ux.svg",
     formLink: "/join/e2ed9c2c-c36c-457f-a8bb-cf2e8bc7c2e1",
@@ -651,7 +651,7 @@ export const technicalCards = [
   {
     title: "Data\nScience",
     description:
-      "ML, analytics & making sense of messy data.",
+      "Machine learning and analytics that turn raw data into insight.",
     color: "#EA4335",
     image: "/assets/images/icons/data-science.svg",
     formLink: "/join/c0f3b1d1-ce05-45f6-9e34-ac9443fc5fcb",
@@ -659,7 +659,7 @@ export const technicalCards = [
   {
     title: "Competitive Programming",
     description:
-      "DSA, contests & cracking that dream internship.",
+      "Algorithms, contests, and interview-ready problem solving.",
     color: "#0F9D58",
     image: "/assets/images/icons/cp.svg",
     formLink: "/join/3e9ac635-01d4-495e-aa87-a7335a2403c2",
@@ -667,7 +667,7 @@ export const technicalCards = [
   {
     title: "Web Dev",
     description:
-      "Modern frontends, full-stack apps & the open web.",
+      "Responsive sites and full-stack apps for the open web.",
     color: "#FBBC04",
     image: "/assets/images/icons/web-dev.svg",
     formLink: "/join/8143de1d-db17-42fa-958d-13b10804f894",
@@ -678,7 +678,7 @@ export const nonTechnicalCards = [
   {
     title: "Creatives",
     description:
-      "Branding, posters & the visual identity of GDG VITC.",
+      "Posters, branding, and the visual voice of GDG VITC.",
     color: "#329A4E",
     image: "/assets/images/icons/design.svg",
     formLink: "/join/d3beefc1-f8b0-4202-b26c-36e9804b6636",
@@ -686,7 +686,7 @@ export const nonTechnicalCards = [
   {
     title: "Outreach",
     description:
-      "Partnerships, sponsors & sister communities.",
+      "The bridge to sponsors, partners, and fellow communities.",
     color: "#4285F4",
     image: "/assets/images/icons/outreach.svg",
     formLink: "/join/3936d5a2-acd9-4a98-ac97-42c2c92f5c02",
@@ -694,7 +694,7 @@ export const nonTechnicalCards = [
   {
     title: "Publicity",
     description:
-      "Our voice online — reels, posts & campaigns.",
+      "The team behind the feed — videos, posts, and campaigns.",
     color: "#EA4335",
     image: "/assets/images/icons/social-media.svg",
     formLink: "/join/4499a966-2740-4c36-88dd-8916a909fc77",
@@ -702,7 +702,7 @@ export const nonTechnicalCards = [
   {
     title: "Management",
     description:
-      "Operations, logistics and the people who make events happen.",
+      "The crew that plans, coordinates, and keeps every event running.",
     color: "#FBBC04",
     image: "/assets/images/icons/management.svg",
     formLink: "/join/c21ca066-ab4d-40a3-943c-f170d6312bdc",
