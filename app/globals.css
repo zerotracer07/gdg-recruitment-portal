@@ -87,16 +87,16 @@
 
 /* White core with difference blend => visible on any background */
 .cursor-dot {
-  width: 16px;
-  height: 16px;
+  width: 13px;
+  height: 13px;
   background: #fff;
   mix-blend-mode: difference;
   transition: width 0.2s ease, height 0.2s ease, opacity 0.3s ease;
 }
 
 .cursor-dot.cursor-hover {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
 }
 
 /* GDG conic-gradient ring (static — no rotation) */
