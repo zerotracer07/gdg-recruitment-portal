@@ -61,7 +61,10 @@ export const reviews = [
       tone: "#8ab4f8",
       name: "Management",
       description: "The crew that plans, coordinates, and keeps every event running.",
-      leads: [{ name: "Dhyan", role: "Management Lead" }],
+      leads: [
+        { name: "Varun Achary", role: "Management Lead" },
+        { name: "Dhyan", role: "Management Lead" },
+      ],
     },
     {
       id: "4499a966-2740-4c36-88dd-8916a909fc77",
