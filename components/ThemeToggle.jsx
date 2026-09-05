@@ -1,40 +1,35 @@
 "use client";
-// Icons import
-import { Moon, Sun } from "lucide-react";
+
+import React from "react";
+import { motion } from "framer-motion";
+import { Moon, Sun, MonitorSmartphone } from "lucide-react";
 import { useTheme } from "next-themes";
-// ShadCN imports
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-// ThemeToggle Component
+// Cycles light → dark → system. Icon morphs with a spring tap.
+const ORDER = ["light", "dark", "system"];
+
 export default function ThemeToggle() {
-    const { setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
+  const current = ORDER.includes(theme) ? theme : "system";
+  const next = ORDER[(ORDER.indexOf(current) + 1) % ORDER.length];
+  const Icon = current === "light" ? Sun : current === "dark" ? Moon : MonitorSmartphone;
 
-    return (
-        <DropdownMenu className="cursor-pointer">
-            <DropdownMenuTrigger asChild>
-                <Button className="rounded-full" variant="outline" size="icon">
-                    <Sun className="h-[1rem] w-[1rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                    <Moon className="absolute h-[1rem] w-[1rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                    <span className="sr-only">Toggle theme</span>
-                </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setTheme("light")}>
-                    Light
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("dark")}>
-                    Dark
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setTheme("system")}>
-                    System (phone)
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
-    );
+  return (
+    <motion.span whileTap={{ scale: 0.85 }} className="inline-flex">
+      <Button
+        className="rounded-full"
+        variant="outline"
+        size="icon"
+        onClick={() => setTheme(next)}
+        aria-label={`Theme: ${current}. Switch to ${next}.`}
+        title={`Theme: ${current} → ${next}`}
+      >
+        <span key={current} className="inline-flex animate-[theme-pop_0.3s_ease]">
+          <Icon className="h-[1rem] w-[1rem]" />
+        </span>
+        <span className="sr-only">Toggle theme (current: {current})</span>
+      </Button>
+    </motion.span>
+  );
 }

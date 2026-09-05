@@ -7,6 +7,7 @@ import { reviews, technicalCards, nonTechnicalCards } from "@/constants";
 import { MagicCard } from "@/components/magicui/magic-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import Tilt from "@/components/Tilt";
+import Scramble from "@/components/Scramble";
 import CountUp from "@/components/CountUp";
 
 const perks = [
@@ -46,7 +47,7 @@ function DeptCard({ title, description, image, color, formLink }) {
       />
       <span className="flex items-start gap-4">
         <span
-          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl transition duration-300 group-hover:rotate-6 group-hover:scale-110"
           style={{ backgroundColor: `${color}1a` }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -54,14 +55,14 @@ function DeptCard({ title, description, image, color, formLink }) {
         </span>
         <span>
           <strong className="whitespace-pre-line text-[15px] leading-snug">
-            {title}
+            <Scramble text={title} />
           </strong>
           <span className="mt-1 line-clamp-2 block text-[13px] leading-relaxed text-muted-foreground">
             {description}
           </span>
-          <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary">
+          <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-primary transition group-hover:drop-shadow-[0_0_8px_hsl(var(--primary)/0.7)]">
             Apply
-            <ArrowRight className="h-3.5 w-3.5" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
           </span>
         </span>
       </span>
@@ -89,7 +90,7 @@ export default function HomeSections() {
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                 About GDG VITC
               </p>
-              <h2 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
+              <h2 className="font-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
                 Google Developer Groups on Campus, VIT Chennai
               </h2>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -137,7 +138,7 @@ export default function HomeSections() {
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
                   Find your crew
                 </p>
-                <h2 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
+                <h2 className="font-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
                   Technical departments
                 </h2>
               </div>
@@ -158,7 +159,7 @@ export default function HomeSections() {
           </div>
 
           <BlurFade inView>
-            <h2 className="mt-12 text-2xl font-extrabold tracking-tight sm:text-3xl">
+            <h2 className="font-display mt-12 text-2xl font-bold tracking-tight sm:text-3xl">
               Community & creative
             </h2>
           </BlurFade>
@@ -179,9 +180,9 @@ export default function HomeSections() {
             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">
               Why join
             </p>
-            <h2 className="mt-2 text-2xl font-extrabold tracking-tight sm:text-3xl">
-              Proof over promises
-            </h2>
+          <h2 className="font-display mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+            Proof over promises
+          </h2>
           </BlurFade>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {perks.map((p, i) => (
@@ -212,19 +213,19 @@ export default function HomeSections() {
                 aria-hidden="true"
                 className="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-black/10 blur-2xl"
               />
-              <h2 className="relative text-2xl font-extrabold tracking-tight sm:text-3xl">
-                Applications are open
-              </h2>
+            <h2 className="font-display relative text-2xl font-bold tracking-tight sm:text-3xl">
+              Applications are open
+            </h2>
               <p className="relative mx-auto mt-2 max-w-md text-sm opacity-90">
                 Pick up to two departments and submit your application in minutes.
               </p>
               <div className="relative mt-6 flex flex-col justify-center gap-3 sm:flex-row">
-                <Link
-                  href="/departments"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-background px-6 py-3 text-sm font-semibold text-foreground transition hover:-translate-y-0.5"
-                >
-                  Start your application <ArrowRight className="h-4 w-4" />
-                </Link>
+              <Link
+                href="/departments"
+                className="btn-shine inline-flex items-center justify-center gap-2 rounded-lg bg-background px-6 py-3 text-sm font-semibold text-foreground shadow-lg transition hover:-translate-y-0.5"
+              >
+                Start your application <ArrowRight className="h-4 w-4" />
+              </Link>
                 <Link
                   href="/auth/signin"
                   className="inline-flex items-center justify-center rounded-lg border border-white/30 px-6 py-3 text-sm font-semibold transition hover:-translate-y-0.5 hover:bg-white/10"

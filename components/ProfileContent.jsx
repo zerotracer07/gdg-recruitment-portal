@@ -169,7 +169,20 @@ export default function ProfilePage() {
           </div>
           <div className="mt-4 space-y-3">
             {apps === null && (
-              <p className="text-sm text-muted-foreground">Loading applications...</p>
+              <div className="space-y-3" aria-label="Loading applications">
+                {[0, 1].map((i) => (
+                  <div key={i} className="rounded-xl border p-4">
+                    <div className="skeleton h-4 w-1/3 rounded" />
+                    <div className="skeleton mt-2 h-3 w-1/2 rounded" />
+                    <div className="mt-3 flex items-center gap-2">
+                      {[0, 1, 2, 3].map((d) => (
+                        <span key={d} className="skeleton h-5 w-5 rounded-full" />
+                      ))}
+                      <span className="skeleton h-2 flex-1 rounded-full" />
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
             {apps !== null && apps.length === 0 && (
               <div className="rounded-xl border border-dashed p-6 text-center">

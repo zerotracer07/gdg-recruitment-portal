@@ -73,17 +73,37 @@ const NavBar = () => {
         </Link>
 
         <div className="hidden items-center gap-1 text-sm sm:flex">
-          {links.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className={`rounded-lg px-3 py-2 font-medium transition hover:bg-accent ${
-                pathname === l.href ? "text-foreground" : "text-muted-foreground"
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
+          <Link
+            href="/departments"
+            className="relative flex items-center gap-1.5 rounded-lg px-3 py-2 font-medium transition hover:bg-accent"
+          >
+            <span className="relative flex h-1.5 w-1.5" aria-label="Applications open">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-500 opacity-70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-green-500" />
+            </span>
+            <span className={pathname === "/departments" ? "text-foreground" : "text-muted-foreground"}>
+              Departments
+            </span>
+            {pathname === "/departments" && (
+              <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-gradient-to-r from-[#4285F4] to-[#7B61FF] shadow-[0_0_8px_hsl(var(--primary)/0.8)]" />
+            )}
+          </Link>
+          {links
+            .filter((l) => l.href !== "/departments")
+            .map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="relative rounded-lg px-3 py-2 font-medium transition hover:bg-accent"
+              >
+                <span className={pathname === l.href ? "text-foreground" : "text-muted-foreground"}>
+                  {l.label}
+                </span>
+                {pathname === l.href && (
+                  <span className="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-gradient-to-r from-[#4285F4] to-[#7B61FF] shadow-[0_0_8px_hsl(var(--primary)/0.8)]" />
+                )}
+              </Link>
+            ))}
           <span className="ml-2 flex items-center gap-2">
             <ThemeToggle />
             {authArea}

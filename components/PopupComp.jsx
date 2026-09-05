@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
+import { motion } from "framer-motion";
 import { BellRing, CheckCircle2, X } from "lucide-react";
 
 const STORAGE_KEY = "recruitment-notice-dismissed";
@@ -20,8 +21,8 @@ function markNoticeDismissed() {
   }
 }
 
-// Non-blocking welcome banner: floats bottom-center, never covers the page,
-// dismissible via Got it, X, or Escape. Persists dismissal per session.
+// Non-blocking glass welcome banner with spring entrance. Dismiss via
+// Got it, X, or Escape. Persists dismissal per session.
 const PopupComp = ({ isOpen, onClose, PopupData }) => {
   useEffect(() => {
     if (!isOpen) return;
@@ -46,10 +47,15 @@ const PopupComp = ({ isOpen, onClose, PopupData }) => {
       aria-label={PopupData?.header || "Notice"}
       className="fixed inset-x-0 bottom-4 z-50 mx-auto w-[calc(100%-2rem)] max-w-md"
     >
-      <div className="overflow-hidden rounded-2xl border bg-card shadow-2xl">
-        <div className="flex items-center justify-between gap-2 bg-gradient-to-r from-primary to-primary/70 px-5 py-3.5 text-primary-foreground">
+      <motion.div
+        initial={{ opacity: 0, y: 32, scale: 0.96 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ type: "spring", stiffness: 320, damping: 26 }}
+        className="overflow-hidden rounded-2xl border border-white/20 bg-card/80 shadow-2xl backdrop-blur-xl"
+      >
+        <div className="flex items-center justify-between gap-2 bg-gradient-to-r from-[#4285F4] to-[#7B61FF] px-5 py-3.5 text-white">
           <span className="flex items-center gap-2">
-            <BellRing className="h-4 w-4 shrink-0" />
+            <BellRing className="animate-bell h-4 w-4 shrink-0" />
             <strong className="text-sm">{PopupData?.header}</strong>
           </span>
           <button
@@ -76,12 +82,12 @@ const PopupComp = ({ isOpen, onClose, PopupData }) => {
           <button
             type="button"
             onClick={handleClose}
-            className="mt-3 w-full rounded-lg bg-primary px-4 py-2 text-[13px] font-semibold text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="btn-shine mt-3 w-full rounded-lg bg-gradient-to-r from-[#4285F4] to-[#7B61FF] px-4 py-2 text-[13px] font-semibold text-white shadow-[0_8px_24px_-8px_rgba(66,133,244,0.6)] transition hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Got it
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

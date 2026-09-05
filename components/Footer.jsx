@@ -97,9 +97,20 @@ const Footer = () => {
           </ul>
         </nav>
       </div>
-      <div className="border-t">
-        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-1 px-4 py-5 text-xs text-muted-foreground sm:flex-row">
+      <div>
+        <div aria-hidden="true" className="h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+        <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 px-4 py-5 text-xs text-muted-foreground sm:flex-row">
           <p>GDG VITC · Recruitment Portal {year}</p>
+          <div className="flex items-center gap-1.5" aria-label="Built with">
+            {["Next.js", "Firebase", "Better-Auth"].map((t) => (
+              <span
+                key={t}
+                className="rounded-full border bg-card px-2.5 py-1 text-[10px] font-semibold transition hover:-translate-y-0.5 hover:border-primary/50 hover:shadow-sm"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
           <p>Built by students, for students.</p>
         </div>
       </div>

@@ -9,6 +9,7 @@ export default function BackgroundDecor() {
       <span className="bg-orb orb-b" />
       <span className="bg-orb orb-c" />
       <DepthBackground />
+      <span className="noise-overlay" />
     </div>
   );
 }
