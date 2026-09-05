@@ -2,6 +2,7 @@ import { connect } from "@/lib/db";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { sendApplicationEmail } from "@/lib/mailer";
+import { isAllowedEmail, ALLOWED_EMAIL_DOMAINS } from "@/constants";
 
 export const dynamic = "force-dynamic";
 
@@ -19,10 +20,20 @@ export async function POST(req) {
 
     const user = session.user;
     const userEmail = user.email;
-    // NOTE (testing): VIT email-domain gate removed. Re-add the
-    // isAllowedEmail check to re-enable.
 
-    const deadline = new Date("2026-09-30T23:59:59+05:30");
+    // Production: applications require a VIT email (covers Google OAuth too).
+    if (!isAllowedEmail(userEmail)) {
+      return new Response(
+        JSON.stringify({
+          message: `Applications require a VIT email (${ALLOWED_EMAIL_DOMAINS.join(" or ")}).`,
+        }),
+        { status: 403 }
+      );
+    }
+
+    const deadline = process.env.APPLICATION_DEADLINE
+      ? new Date(process.env.APPLICATION_DEADLINE)
+      : new Date("2026-09-30T23:59:59+05:30");
     if (new Date() > deadline)
       return new Response(
         JSON.stringify({

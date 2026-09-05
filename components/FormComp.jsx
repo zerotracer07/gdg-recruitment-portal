@@ -75,7 +75,6 @@ const FormComp = ({ dept1, dept2, isLoading, setIsLoading }) => {
       `/api/check-applications?email=${userEmail}`
     );
     const { count } = await checkResponse.json();
-    console.log(count);
 
     if (count >= 2) {
       setErrorMessage(

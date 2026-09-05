@@ -92,8 +92,8 @@ firestore.rules       # Deny-all direct client access
 ## Key behaviours to know
 
 - **Max 2 applications** per account, enforced client- and server-side.
-- **Submission deadline** is hardcoded in `app/api/submit-form/route.js` — bump it each cycle.
-- **Testing mode**: the VIT-email restriction is currently OFF (any email works). Each bypass has a `NOTE (testing)` comment — restore all three to re-lock to campus emails.
+- **Submission deadline** comes from `APPLICATION_DEADLINE` (or the Sept 2026 fallback in code) — set it in Vercel env every cycle, or the live site rejects everything with 403.
+- **VIT-only access**: email signup, OTP codes, and applications all require a VIT email (`vitstudent.ac.in` / `vit.ac.in`). Google accounts with other domains can exist but cannot apply.
 - Emails are best-effort: if SMTP is unconfigured, actions succeed and the miss is logged/toasted, never a crash.
 
 ## Deployment (Vercel)

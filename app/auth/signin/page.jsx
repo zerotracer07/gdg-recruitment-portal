@@ -134,7 +134,15 @@ export default function SignInPage() {
       return;
     }
 
-    // NOTE (testing): VIT email-domain check removed. Any email works.
+    // Production: VIT emails only.
+    const domain = email.trim().toLowerCase().split("@")[1] || "";
+    const isVit = ["vitstudent.ac.in", "vit.ac.in"].some(
+      (d) => domain === d || domain.endsWith(`.${d}`)
+    );
+    if (!isVit) {
+      toast.error("Please use your VIT email (vitstudent.ac.in or vit.ac.in).");
+      return;
+    }
 
     // Signup is gated behind email OTP verification
     if (mode === "signup" && otpStep === "details") {
@@ -224,7 +232,7 @@ export default function SignInPage() {
                 ? "Enter the code to verify your email."
                 : "Create an account to apply (max 2 departments)."}
             <span className="mt-1 block text-xs">
-              Testing mode: any email works (VIT restriction off).
+              VIT email required (vitstudent.ac.in / vit.ac.in).
             </span>
           </CardDescription>
           <div className="flex gap-2 pt-2">
